@@ -37,6 +37,7 @@ for label_path in labels_path:
     labels.append(labels_in_text)
     classes.append(classes_in_text)
 
+# Add user inputs and multple augmentations for single image
 # 2. Image Augmentation
 aug = iaa.Sequential([
     # 1. Flip
