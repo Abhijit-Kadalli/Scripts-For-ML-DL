@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 from sklearn.model_selection import StratifiedShuffleSplit
 
 def get_label(image_path):
@@ -14,14 +15,14 @@ def get_label(image_path):
 # Current directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-current_dir = 'data/obj'
+current_dir = 'images'
 
 # Load the file paths and labels for the images
 image_paths = [image_path for image_path in glob.iglob(os.path.join(current_dir, "*.jpg"))]
 labels = [get_label(image_path) for image_path in image_paths]
 
 # Create the stratified shuffle split
-splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=2)
 
 # Iterate over the splits
 for train_index, test_index in splitter.split(image_paths, [len(l) for l in labels]):
@@ -30,15 +31,26 @@ for train_index, test_index in splitter.split(image_paths, [len(l) for l in labe
     y_train, y_test = [labels[i] for i in train_index], [labels[i] for i in test_index]
 
 # Create and/or truncate train.txt and test.txt
-file_train = open('data/train.txt', 'w')
-file_test = open('data/test.txt', 'w')
+# file_train = open('data/train.txt', 'w')
+# file_test = open('data/test.txt', 'w')
 
-# Write
-for image_path in X_train:
-    file_train.write(image_path + "\n")
-for image_path in X_test:
-    file_test.write(image_path + "\n")
+# Write the image paths to the files
+# for image_path in X_train:
+#     file_train.write(image_path + "\n")
+# for image_path in X_test:
+#     file_test.write(image_path + "\n")
 
 # Close
-file_train.close() 
-file_test.close()
+# file_train.close() 
+# file_test.close()
+
+# copy the images to the train and test folders
+for image_path in X_train:
+    shutil.copy(image_path, 'split/train')
+    label_path = image_path.replace(".jpg", ".txt")
+    shutil.copy(label_path,'split/train')
+for image_path in X_test:
+    shutil.copy(image_path, 'split/test')
+    label_path = image_path.replace(".jpg", ".txt")
+    shutil.copy(label_path,'split/test')
+
