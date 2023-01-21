@@ -3,10 +3,6 @@ import os
 
 labels_count_test =[]
 labels_count_val = []
-def get_label(label_path):
-    label_count =  []
-    
-    return label_count
 
 # Current directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
