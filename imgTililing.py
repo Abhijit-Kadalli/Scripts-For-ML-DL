@@ -37,10 +37,10 @@ for label_path in labels_path:
     classes.append(classes_in_text)
 
 # Input for cropping images
-print('enter the crop size x: ')
-tile_sizex = int(input())
-print('enter the crop size y: ')
-tile_sizey = int(input())
+print('enter the crop x percentage: ')
+tile_sizex = int(input()) * 1920 / 100
+print('enter the crop y percentage: ')
+tile_sizey = int(input()) * 1080 / 100
 
 # Cropping images 'uniform', 'normal', 'center', 'left-top', 'left-center', 'left-bottom', 'center-top', 'center-center', 'center-bottom', 'right-top', 'right-center', 'right-bottom'
 cropper_topleft     = iaa.CropToFixedSize(width=tile_sizex, height=tile_sizey, position="left-top")
