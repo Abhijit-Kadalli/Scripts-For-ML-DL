@@ -4,3 +4,5 @@ rough.txt
 images
 images_aug
 new_classes.txt
+tiled_images
+resized_images
